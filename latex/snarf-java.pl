@@ -23,7 +23,7 @@ sub color($) {
   $line =~ s/\b([a-z]\w*)(\s*\()/$p$1$2/g;
   $line =~ s/\b([a-z]\w*)\b/{\\color{var}$1}/g; # color variables
   $line =~ s/$p//g;
-  my @keywords = ("void", "null", "int", "long", "double", "float", "char", "byte", "public", "protected", "private", "static", "if", "while", "else", "for", "do", "T", "K", "V", "extends", "implements", "throw", "new", "class");
+  my @keywords = ("void", "null", "int", "long", "double", "float", "char", "byte", "public", "protected", "private", "static", "if", "while", "else", "for", "do", "T", "K", "V", "extends", "implements", "throw", "new", "class", "fun");
   foreach my $k (@keywords) {
     $line =~ s/\{\\color\{\w+\}($k)\}/$1/g;
     $line =~ s/\b($k)\b/{\\color{keyword}$1}/g;
@@ -36,10 +36,10 @@ sub color($) {
 
 sub printVerbatim($) {
   my $line = shift(@_);
-  $line = color($line);
-  while ($line =~ s/(^|[^\\])\{/$1\@/) {} # change { to @
-  while ($line =~ s/(^|[^\\])\}/$1\$/) {} # change } to $
-  $line =~ s/\\([{}])/$1/g;               # unescape \{
+  # $line = color($line);
+  # while ($line =~ s/(^|[^\\])\{/$1\@/) {} # change { to @
+  # while ($line =~ s/(^|[^\\])\}/$1\$/) {} # change } to $
+  # $line =~ s/\\([{}])/$1/g;               # unescape \{
   print("$line\n");
 }
 
@@ -142,12 +142,21 @@ MAIN: {
       #print("\\resizebox{.98\\textwidth}{!}{");
       print("\n\n ");
       print('\ \vspace{.5ex}');
-      print("\\begin{Verbatim}[gobble=1,tabsize=2,frame=single,framerule=1.2pt");
-      print(',commandchars=\\\\@\\$');
-      print(",label=\\texttt{$class},labelposition=topline");
-      print("]\n"); 
-      snarfit($args, 0); 
-      print("\\end{Verbatim}\n\n");
+      # print("\\begin{listing}\n");
+      print("\\begin{mdframed}\n");
+      print("\\begin{minted}{kotlin}");
+      print("\n");
+      # print("\\begin{Verbatim}[gobble=1,tabsize=2,frame=single,framerule=1.2pt");
+      # print(',commandchars=\\\\@\\$');
+      # print(",label=\\texttt{$class},labelposition=topline");
+      # print("]\n");
+      snarfit($args, 0);
+      # print("\\end{Verbatim}\n\n");
+      print("\\end{minted}\n");
+      print("\\end{mdframed}\n");
+      # print("\\caption{\\texttt{$class}}\n");
+      # print("\\end{listing}");
+      print("\n");
       #print("}");
       #print('\renewcommand{\baselinestretch}{1.4}'."\n");
       #print('\end{singlespace}');

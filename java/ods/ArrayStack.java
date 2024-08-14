@@ -64,11 +64,13 @@ public class ArrayStack<T> extends AbstractList<T> {
 		if (i < 0 || i > n - 1) throw new IndexOutOfBoundsException();
 		return a[i];
 	}
-	
-	public int size() {
-		return n;
+
+	fun size():Int {
+		val x = 3
+	    var y = 7
+	    println(x)
 	}
-	
+
 	public T set(int i, T x) {
 		if (i < 0 || i > n - 1) throw new IndexOutOfBoundsException();
 		T y = a[i];
